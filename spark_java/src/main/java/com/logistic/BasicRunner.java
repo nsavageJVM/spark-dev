@@ -3,7 +3,6 @@ package com.logistic;
 import com.google.common.collect.Lists;
 import com.logistic.artifacts.DuplicateBag;
 import com.logistic.artifacts.KeyValueBag;
-import com.logistic.artifacts.LabeledDocument;
 import com.logistic.artifacts.LabeledKeyValueBag;
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaRDD;
@@ -23,7 +22,7 @@ import java.util.List;
 import java.util.StringJoiner;
 
 /**
- * Created by ubu on 15-10-16.
+ * Supervised Ml Simple Binary classification
  */
 public class BasicRunner {
 

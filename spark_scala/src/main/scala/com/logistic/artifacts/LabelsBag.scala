@@ -2,16 +2,6 @@ package com.logistic.artifacts
 
 import scala.beans.BeanInfo
 
-@BeanInfo
-case class LabeledDocument(id: Long, text: String, label: Double)  {
-  override def equals(that: Any): Boolean = ???
-}
-
-@BeanInfo
-case class Document(id: Long, text: String)  {
-  override def equals(that: Any): Boolean = ???
-}
-
 
 @BeanInfo
 case class DuplicateBag(id: String, name: String, billingCity: String, billingState: String, billingPostalCode: String,
