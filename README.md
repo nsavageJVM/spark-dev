@@ -9,21 +9,21 @@
 
 ## Binary classification with the Logistic model
   
-Good things in Math are always simple, 
+Simple code
   
 ### Training
   
-get a bunch of data and label it, ie add a binary classification {0,1}
-make the usuall statistical assumptions D(x,y) -> N(mu, theta) -> N(0,1)  
+Basic idea get a bunch of data and label it, ie add a binary classification {0,1}
+make some statistical assumptions D(x,y) -> N(mu, theta) -> N(0,1)  
 create a model (train)  
 
 ### Estimation
   
 if your data is not numerical convert it to a numerical representation (hash) 
 fit some other data and based on your model, and using  some associated statistical test 
-based on your assumptions make a decision about the data point ( classify it)  
+based on your assumptions make a decision about the data point
 
-Spark does this very well for you with their Data Pipelines see this in 
+Spark makes this easy for you with their Data Pipelines see this in 
 com.logistic.BasicRunner  
 
 #### Comment  
