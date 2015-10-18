@@ -28,7 +28,6 @@ com.logistic.BasicRunner
 
 #### Comment  
   
-In my opinion your are better off assuming a Cauchy distribution  
-Next up Clustering using some thing they call a k-mean wtf  
+Next up Clustering
   
   
