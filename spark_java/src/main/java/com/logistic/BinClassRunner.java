@@ -24,16 +24,16 @@ import java.util.StringJoiner;
 /**
  * Supervised Ml Simple Binary classification
  */
-public class BasicRunner {
+public class BinClassRunner {
 
     public static void main(String[] args) {
 
-        SparkConf sparkConf = new SparkConf().setAppName("BasicRunner").setMaster("local[*]");
+        SparkConf sparkConf = new SparkConf().setAppName("BinClassRunner").setMaster("local[*]");
         JavaSparkContext ctx = new JavaSparkContext(sparkConf);
         SQLContext sqlContext = new SQLContext(ctx);
 
         JavaRDD<String> addressDataWithHeader = ctx
-               .textFile(BasicRunner.class.getResource("/ComercialBanks10k.csv").toExternalForm());
+               .textFile(BinClassRunner.class.getResource("/ComercialBanks10k.csv").toExternalForm());
 
         JavaRDD<DuplicateBag> addressData =  getDistinctValues(addressDataWithHeader);
 
@@ -90,26 +90,19 @@ public class BasicRunner {
 
         String  header = addressDataWithHeader.first();
 
-                addressDataWithHeader = addressDataWithHeader.filter( x-> !x.equals(header));
-
+        addressDataWithHeader = addressDataWithHeader.filter( x-> !x.equals(header));
 
         JavaRDD<KeyValueBag> addressData = addressDataWithHeader
-                .map(new Function<String, KeyValueBag>() {
-                    @Override
-                    public KeyValueBag call(String line) {
-                        String[] parts = line.split("\t");
-                        StringJoiner stringJoiner = new StringJoiner(" ");
-                        String valueString = stringJoiner
-                                .add(parts[1]).add(parts[2]).add(parts[3])
-                                .add(parts[4]).add(parts[5]).add(parts[6])
-                                .add(parts[7]).toString();
-
-                        KeyValueBag  address = new KeyValueBag(parts[0],valueString);
-
-
-                        return address;
-                    }
-                });
+                .map( line -> {
+                            String[] parts = line.split("\t");
+                            StringJoiner stringJoiner = new StringJoiner(" ");
+                            String valueString = stringJoiner
+                                    .add(parts[1]).add(parts[2]).add(parts[3])
+                                    .add(parts[4]).add(parts[5]).add(parts[6])
+                                    .add(parts[7]).toString();
+                            return  new KeyValueBag(parts[0],valueString);
+                        }
+                );
 
         return addressData;
     }
@@ -121,21 +114,13 @@ public class BasicRunner {
 
         addressDataWithHeader = addressDataWithHeader.filter( x-> !x.equals(header));
 
-
         JavaRDD<DuplicateBag> addressData = addressDataWithHeader
-                .map(new Function<String, DuplicateBag>() {
-                    @Override
-                    public DuplicateBag call(String line) {
-                        DuplicateBag address = null;
-                        String[] parts = line.split("\t");
-
-                        address = new DuplicateBag(parts[0], parts[1], parts[2], parts[3],
-                                parts[4], parts[5], parts[6], parts[7]);
-
-
-                        return address;
-                    }
-                });
+                .map( line -> {
+                            String[] parts = line.split("\t");
+                            return  new DuplicateBag(parts[0], parts[1], parts[2], parts[3],
+                                    parts[4], parts[5], parts[6], parts[7]);
+                        }
+                );
 
         return addressData;
     }

@@ -24,7 +24,7 @@ fit some other data and based on your model, and using  some associated statisti
 based on your assumptions make a decision about the data point
 
 Spark makes this easy for you with their Data Pipelines see this in 
-com.logistic.BasicRunner  
+com.logistic.BinClassRunner  
 
 #### Comment  
   

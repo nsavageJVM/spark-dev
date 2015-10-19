@@ -20,3 +20,9 @@ case class LabeledKeyValueBag(id: Long, value: String, label: Double)  {
 case class KeyValueBag(key: String, value: String )  {
   override def equals(that: Any): Boolean = ???
 }
+
+
+@BeanInfo
+case class HashValueBag(entity: String, hash: Integer )  {
+  override def equals(that: Any): Boolean = ???
+}
