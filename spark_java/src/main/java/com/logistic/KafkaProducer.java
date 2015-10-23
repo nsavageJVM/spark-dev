@@ -9,6 +9,7 @@ import java.util.Properties;
 
 /**
  * Simple producer
+ * https://cwiki.apache.org/confluence/display/KAFKA/0.8.0+Producer+Example
  */
 public class KafkaProducer {
 
