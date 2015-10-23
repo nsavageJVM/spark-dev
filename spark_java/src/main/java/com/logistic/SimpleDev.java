@@ -14,37 +14,19 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
- * Created by ubu on 19.10.15.
+ * QuorumPeerConfig
+ * http://stackoverflow.com/questions/9286054/is-it-possible-to-start-a-zookeeper-server-instance-in-process-say-for-unit-tes
+ *
+ * https://ransilberman.wordpress.com/2013/07/19/how-to-unit-test-kafka/
+ *
+ * https://gist.github.com/fjavieralba/7930018
+ *
+ * https://gist.github.com/vmarcinko/e4e58910bcb77dac16e9
  */
 public class SimpleDev {
 
     public static void main(String[] args) {
 
-//      try( Stream<String> lines = Files.lines(Paths.get(SimpleDev.class.getResource("/ComercialBanks10k.csv").toURI()))) {
-//
-//          List<String> listLines = lines.collect(Collectors.toList());
-//
-//          listLines.forEach(s -> {
-//              HashValueBag hashBag = new HashValueBag(s, s.hashCode());
-//              System.out.println(hashBag);
-//
-//          });
-//
-//
-//      } catch (URISyntaxException e) {
-//          e.printStackTrace();
-//      } catch (IOException e) {
-//          e.printStackTrace();
-//      }
-
-
-        try {
-            File file = new File("myModelPath") ;
-            FileUtils.forceDelete(file); //delete directory
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
 
     }
