@@ -1,5 +1,6 @@
 package com.io
 
+import scala.collection.generic.SeqFactory
 import scala.io.Source
 import scala.util.{Success, Try}
 
@@ -7,10 +8,25 @@ import scala.util.{Success, Try}
 case class CsvRecord(line: String)
 
 object CsvRecord {
-
   def parse(line: String): CsvRecord = {
-
     CsvRecord(line)
+  }
+}
+
+case class CsvToken(tokens: Seq[String])
+object CsvToken {
+
+  def parse(line: CsvRecord ): CsvToken = {
+    val splitted = line.line.split("\t")
+    CsvToken(splitted)
+  }
+
+  def getProcessTokens(tokens:  Seq[String]):  Seq[String] = {
+    tokens match {
+      case _ if(tokens.length > 5)  =>  List(tokens(1), tokens(3) , tokens(5))
+      case  Nil  => Seq()
+    }
+
   }
 
 }
@@ -36,6 +52,18 @@ object ParseCsv {
     validLines.map(parse)
 
   }
+
+
+  def readFromCsvRecords[T](records: Seq[CsvRecord])(implicit parse: CsvRecord  => T) : Seq[T] = {
+
+    val validRecords = Try(parse(records.head)) match {
+      case Success(_) => records
+      case _ => records.tail
+    }
+    records.map(parse)
+
+  }
+
 
 
 
