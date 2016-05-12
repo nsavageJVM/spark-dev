@@ -18,12 +18,14 @@ object BinClassModule extends SparkConfig {
      val tokens: Seq[CsvToken] = ParseCsv.readFromCsvRecords(records)(CsvToken.parse )
      // process header
      val headers: Seq[String] = CsvToken.getProcessTokens(tokens.head.tokens)
-     val processedTokens: Seq[Seq[String]] = tokens.map(t =>  CsvToken.getProcessTokens(t.tokens) ).drop(1).take(20)
+     val processedTokens: Seq[Seq[String]] = tokens.map(t =>  CsvToken.getProcessTokens(t.tokens) ).drop(1)
+     val nonEmptyTokens =  ParseCsv.mapTonNnEmptyResults(processedTokens)
+
      val schema =
        StructType( headers.map(fieldName => StructField(fieldName, StringType, true)))
      import sqlContext.implicits._
 
-     val rdd = sc.parallelize(processedTokens)
+     val rdd = sc.parallelize(nonEmptyTokens)
      val rowRDD = rdd.map(p => Row(p(0), p(1) , p(2)))
      val peopleDataFrame = sqlContext.createDataFrame(rowRDD, schema)
 //
@@ -33,7 +35,7 @@ object BinClassModule extends SparkConfig {
 
 
      peopleDataFrame.printSchema()
-
+     peopleDataFrame.show()
 
 
    }

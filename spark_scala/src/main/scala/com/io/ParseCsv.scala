@@ -1,6 +1,7 @@
 package com.io
 
 import scala.collection.generic.SeqFactory
+import scala.collection.mutable.ListBuffer
 import scala.io.Source
 import scala.util.{Success, Try}
 
@@ -24,7 +25,7 @@ object CsvToken {
   def getProcessTokens(tokens:  Seq[String]):  Seq[String] = {
     tokens match {
       case _ if(tokens.length > 5)  =>  List(tokens(1), tokens(3) , tokens(5))
-      case  Nil  => Seq()
+      case _ if(tokens.length <= 5) => Nil
     }
 
   }
@@ -65,6 +66,21 @@ object ParseCsv {
   }
 
 
+  def mapTonNnEmptyResults[T](processedTokens: Seq[Seq[String]] ) : List[ListBuffer[String]]= {
 
+    val nonEmptyTokens   = new ListBuffer[ListBuffer[String]]
+
+    processedTokens.foreach( pT => { if (!pT.isEmpty) {
+
+      val toks = new ListBuffer[String]
+
+      pT.foreach( t => (toks += t) )
+
+      nonEmptyTokens += toks
+    }
+    })
+
+    nonEmptyTokens.toList
+  }
 
 }

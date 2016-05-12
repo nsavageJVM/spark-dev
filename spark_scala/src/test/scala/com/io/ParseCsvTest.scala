@@ -3,6 +3,8 @@ package com.io
 import org.junit.{Before, Test}
 import org.scalatest.junit.JUnitSuite
 
+import scala.collection.mutable.ListBuffer
+
 /**
   * http://www.scalatest.org/getting_started_with_junit_4_in_scala
   */
@@ -53,7 +55,7 @@ class ParseCsvTest  extends JUnitSuite {
 
 
   @Test
-  def obtainCSVTokenHeader() {
+  def obtainCSVProcessedTokens() {
 
     val recordsPath :String =  ParseCsv.findResource("/ComercialBanks10k.csv")
     val records: Seq[CsvRecord] = ParseCsv.readFromCsvFile(recordsPath)(CsvRecord.parse)
@@ -69,9 +71,11 @@ class ParseCsvTest  extends JUnitSuite {
     headers.map(x => println(x) )
     println("process some token   ")
 
-    val processedTokens: Seq[Seq[String]] = tokens.map(t =>  CsvToken.getProcessTokens(t.tokens) ).drop(1).take(20)
+    val processedTokens: Seq[Seq[String]] = tokens.map(t =>  CsvToken.getProcessTokens(t.tokens) ).drop(1)
 
-    processedTokens.foreach( pT => println( pT))
+    val nonEmptyTokens =  ParseCsv.mapTonNnEmptyResults(processedTokens)
+
+    nonEmptyTokens.foreach( pT =>   println( pT))
 
   }
 
